@@ -37,7 +37,8 @@ function checkData(data) {
         
         return;
     } else if (data.length === 1) {
-        
+        refs.countryList.innerHTML = '';
+        renderCountryInfo(data);
     }
     
 } 
