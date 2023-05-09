@@ -24,7 +24,6 @@ function onInput(e) {
     fetchCountries(searchQuery)
         .then(checkData)
         .catch(error => {
-            console.log(error)
             Notiflix.Notify.warning('Oops, there is no country with that name')
         })
 }
@@ -49,29 +48,30 @@ function checkData(data) {
     
 
 function renderCountiesList(countries) {
+    console.log(countries)
     return countries
         .map((country) => {
             return `
             <li class="country-list-item">
-                <img class="country-flag" src="${country.flags.svg}" alt="${country.name.official}">
+                <img width="40" height="30" class="country-flag" src="${country.flags.svg}" alt="${country.name.official}">
                 <p class="country-list-name">${country.name.official}</p>
             </li>`;
         })
         .join("");
 };
 
-function renderCountryInfo(country) {
-    const {
-        name: { official },
-        capital,
-        population,
-        flags: { svg },
-        languages,
-    } = country;
-
-    return `
+function renderCountryInfo(countries) {
+    return countries
+        .map(
+        ({
+            name: { official },
+            capital,
+            population,
+            flags: { svg },
+            languages,
+    }) => `
     <div class="country-data">
-        <img class="country-flag" src="${svg}" alt="${official}">${official}
+        <img class="country-flag" src="${svg}" alt="${official}" width ="50" height="30">
         <p class="country-name">${official}</p>
     </div>
     <ul class="country-info-list">
@@ -88,8 +88,8 @@ function renderCountryInfo(country) {
         <li class="country-info-item">
             <p class="country-info-name">Languages:
                 <span class="country-info-value">${Object.values(
-                    languages).join(', ')}</span>
+        languages).join(', ')}</span>
             </p>   
         </li>
-    </ul>`;
+    </ul>`).join('')
 }

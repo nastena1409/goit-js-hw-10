@@ -19,10 +19,19 @@ body {
   margin-bottom: 16px;
 }
 
+.country-list {
+  padding: 0;
+  margin: 0;
+}
 
 .country-list-item {
   display: flex; 
   flex-direction: row;
+  align-items: center;
+}
+
+.country-flag {
+  margin-right: 15px;
 }
 
 .country-list {
@@ -30,14 +39,14 @@ body {
 }
 
 .country-list-flag {
-  width: 32;
-  height: 27;
   margin-right: 10px;
 }
 
 .country-data {
   display: flex;
   flex-direction: row;
+  align-items: center;
+  height: 80;
 }
 
 .country-name {
@@ -47,6 +56,7 @@ body {
 
 .country-info-list {
   list-style: none;
+  padding-left: 15px;
 }
 
 .country-info-name {
