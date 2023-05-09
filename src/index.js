@@ -53,8 +53,8 @@ function renderCountiesList(countries) {
         .map((country) => {
             return `
             <li class="country-list-item">
-                <img class="country-flag" src="${country.svg}" alt="${country.name.official}">
-                <p class="country-list-name">${country.name}</p>
+                <img class="country-flag" src="${country.flags.svg}" alt="${country.name.official}">
+                <p class="country-list-name">${country.name.official}</p>
             </li>`;
         })
         .join("");
