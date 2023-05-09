@@ -23,8 +23,12 @@ function onInput(e) {
 
     fetchCountries(searchQuery)
         .then(checkData)
-        .catch(error => Notiflix.Notify.warning('Oops, there is no country with that name'))
+        .catch(error => {
+            console.log(error)
+            Notiflix.Notify.warning('Oops, there is no country with that name')
+        })
 }
+
 
 function checkData(data) {
     if (data.length > 10) {
@@ -33,12 +37,12 @@ function checkData(data) {
         return;
     } else if (data.length >= 2 && data.length <= 10) {
         refs.countryInfo.innerHTML = '';
-        renderCountiesList(data);
+        refs.countryList.insertAdjacentHTML("afterbegin", renderCountiesList(data));
         
         return;
     } else if (data.length === 1) {
         refs.countryList.innerHTML = '';
-        renderCountryInfo(data);
+        refs.countryInfo.insertAdjacentHTML("afterbegin",renderCountryInfo(data))
     }
     
 } 
@@ -50,7 +54,7 @@ function renderCountiesList(countries) {
             return `
             <li class="country-list-item">
                 <img class="country-flag" src="${countries.flags.svg}" alt="${country.name.official}">
-                <p class="country-list-name">${country.name.official}</p>
+                <p class="country-list-name">${country.name}</p>
             </li>`;
         })
         .join("");
