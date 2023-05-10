@@ -24,7 +24,9 @@ function onInput(e) {
     fetchCountries(searchQuery)
         .then(checkData)
         .catch(error => {
-            Notiflix.Notify.warning('Oops, there is no country with that name')
+            Notiflix.Notify.failure('Oops, there is no country with that name');
+            refs.countryList.innerHTML = '';
+            refs.countryInfo.innerHTML = '';
         })
 }
 
@@ -34,21 +36,21 @@ function checkData(data) {
         Notiflix.Notify.info('Too many matches found. Please enter a more specific name.');
 
         return;
-    } else if (data.length >= 2 && data.length <= 10) {
+    } if (data.length >= 2 && data.length <= 10) {
         refs.countryInfo.innerHTML = '';
-        refs.countryList.insertAdjacentHTML("afterbegin", renderCountiesList(data));
-        
+        refs.countryList.innerHTML = renderCountiesList(data);
+
         return;
-    } else if (data.length === 1) {
+    }  if (data.length === 1) {
         refs.countryList.innerHTML = '';
-        refs.countryInfo.insertAdjacentHTML("afterbegin",renderCountryInfo(data))
+        refs.countryInfo.innerHTML = renderCountryInfo(data);
+        return;
     }
     
 } 
     
 
 function renderCountiesList(countries) {
-    console.log(countries)
     return countries
         .map((country) => {
             return `
@@ -60,16 +62,17 @@ function renderCountiesList(countries) {
         .join("");
 };
 
-function renderCountryInfo(countries) {
-    return countries
+function renderCountryInfo(country) {
+    return country
         .map(
-        ({
-            name: { official },
-            capital,
-            population,
-            flags: { svg },
-            languages,
-    }) => `
+            ({
+                name: { official },
+                capital,
+                population,
+                flags: { svg },
+                languages,
+            }) => {
+                return `
     <div class="country-data">
         <img class="country-flag" src="${svg}" alt="${official}" width ="50" height="30">
         <p class="country-name">${official}</p>
@@ -88,8 +91,8 @@ function renderCountryInfo(countries) {
         <li class="country-info-item">
             <p class="country-info-name">Languages:
                 <span class="country-info-value">${Object.values(
-        languages).join(', ')}</span>
+                    languages).join(', ')}</span>
             </p>   
         </li>
-    </ul>`).join('')
+    </ul>`}).join('')
 }
