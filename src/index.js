@@ -34,6 +34,8 @@ function onInput(e) {
 function checkData(data) {
     if (data.length > 10) {
         Notiflix.Notify.info('Too many matches found. Please enter a more specific name.');
+        refs.countryList.innerHTML = '';
+        refs.countryInfo.innerHTML = '';
 
         return;
     } if (data.length >= 2 && data.length <= 10) {
@@ -45,10 +47,8 @@ function checkData(data) {
         refs.countryList.innerHTML = '';
         refs.countryInfo.innerHTML = renderCountryInfo(data);
         return;
-    }
-    
+    }   
 } 
-    
 
 function renderCountiesList(countries) {
     return countries
